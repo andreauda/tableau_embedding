@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head><title>Dynamic Tableau Filter</title>
+    <!-- Include JavaScript library of Tableau from your Tableau server -->
+    <script src='https://<your-server-name>/javascripts/api/tableau-2.min.js'></script>
+    </head>
+    <body>
+        <!-- Conteniner for Tableau visualization-->
+        <div id="tableauVizContainer"></div>
+        <script>
+            // Get parameters from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            // Exctracting the parameter value from URL
+            const category = urlParams.get('Category');
+            // Build URL of the Tableau visualization with the parameter inclued
+            const url = 'https://<your-server-name>/t/<your-site-name>/views/test_embedding/Sheet1?:embed=y&:showAppBanner=false&:display_count=n&Category=' + category;
+            // Options for Tableau viz
+            const options = {
+                hideTabs: true,
+                onFirstInteractive: function () {
+                    // Code to execute once the visualization is interactive
+                }
+            };
+            // Get the reference of the viz container
+            const vizContainer = document.getElementById('tableauVizContainer');
+            // Create the Tableau viz with URL and the specified options
+            const viz = new tableau.Viz(vizContainer, url, options);
+        </script>
+    </body>
+</html>
